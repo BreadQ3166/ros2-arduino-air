@@ -120,4 +120,4 @@ ros2 topic echo /air_quality_data
 ros2 run plotjuggler plotjuggler
 ```
 
-![img](https://jcn67m1rifze.feishu.cn/space/api/box/stream/download/asynccode/?code=MjExYTZiOTk2OWY0YTVhMDczOTE4ZGI2NDdjMGIxODlfbFRCWXlyQmpCbVMwU2FZWDdQVXR2SDNBNDI4WjlGeGhfVG9rZW46WWJsb2JydHpVb0ttZkV4MlJsOWM1dzdnbmJoXzE3NzA2MjI2MTc6MTc3MDYyNjIxN19WNA)
+![air](.\air.png)
