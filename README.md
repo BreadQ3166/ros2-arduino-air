@@ -120,4 +120,5 @@ ros2 topic echo /air_quality_data
 ros2 run plotjuggler plotjuggler
 ```
 
-![air](.\air.png)
+![air](https://github.com/BreadQ3166/ros2-arduino-air/blob/main/air.png?raw=true)
+
