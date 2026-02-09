@@ -4,14 +4,14 @@
 
 ## 技术规格
 
-- **发布频率**：ROS2节点频率 1Hz
+- **发布频率**：ROS2节点发布频率 1Hz
 - **通讯协议**：
   - 传感器层：UART (115200 bps) + ADC
   - Arduino-ROS2传输层：自定义串口协议 `$START,...,$END`
 
 # Arduino
 
-1. ## 硬件清单
+## 1. 硬件清单
 
 | **组件**     | **型号**             | **说明**                                  |
 | ------------ | -------------------- | ----------------------------------------- |
@@ -20,9 +20,9 @@
 | 气体传感器   | TVOC气体传感器模组   | 支持 UART 串口输出                        |
 | 电平转化模块 | 5V转3.3V四路电平转化 | Arduino(5V)与气体传感器(3.3V)信号电平转化 |
 
-1. ## 接线定义
+## 2. 接线定义
 
-### 微雪-GP2Y1010AU0F 灰尘传感器
+### 2.1 微雪-GP2Y1010AU0F 灰尘传感器
 
 IO电平为5V，可与Arduino直接连接
 
@@ -33,7 +33,7 @@ IO电平为5V，可与Arduino直接连接
 | Analog A0 | AOUT       | 电压模拟量输出    |
 | Digital 7 | ILED       | 传感器内部LED驱动 |
 
-### 微雪-TVOC气体传感器模组
+### 2.2 微雪-TVOC气体传感器模组
 
 IO电平为3.3V，四根信号线通过电平转换模块进行5V-3.3V电平转化
 
@@ -46,7 +46,7 @@ IO电平为3.3V，四根信号线通过电平转换模块进行5V-3.3V电平转�
 | Digital 9        | RST        | 复位引脚，低电平有效                 |
 | Digital 8        | ALM        | 报警引脚，TVOC超过2ppm，引脚自动拉低 |
 
-1. ## 参数配置
+## 3. 参数配置
 
 打开`sensor/sensor.ino`
 
@@ -62,7 +62,12 @@ IO电平为3.3V，四根信号线通过电平转换模块进行5V-3.3V电平转�
 
 # ROS2端
 
-## 环境配置
+## 1. 环境配置
+
+在开始之前，确保你已经安装了：
+- Ubuntu 22.04 & ROS 2 Humble
+- Python 3.10+
+- `pyserial` 库
 
 ```Plain
 # 安装串口库
@@ -71,22 +76,34 @@ pip3 install pyserial
 sudo chmod 666 /dev/ttyACM0
 ```
 
-## 启动串口桥接节点
+## 2. 安装教程
 
 ```Plain
+# 克隆仓库
+git clone https://github.com/BreadQ3166/ros2-arduino-air.git
 # 进入工作空间
-cd air_ws/src
-# 构建自定义消息格式
+cd air_ws
+# 编译
 colcon build --packages-select aq_msgs
-# 构建串口转发
 colcon build --packages-select aq_driver
-# 刷新环境
+# 刷新
 source install/setup.bash
 # 运行传感器节点
 ros2 run aq_driver serial_reader
 ```
 
-## 查看数据
+参数配置，打开/air_ws/src/aq_driver/aq_driver/serial_reader.py
+
+| 参数名 | 类型   | 默认值       | 说明            |
+| ------ | ------ | ------------ | --------------- |
+| port   | string | /dev/ttyACM0 | Arduino串口地址 |
+
+## 3. 消息格式
+
+- **发布话题**: /air_quality_data
+- **消息类型**: aq_msgs/msg/AirQuality
+
+## 4. 查看数据
 
 ```Plain
 # 查看话题信息
