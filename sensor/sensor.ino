@@ -55,7 +55,8 @@ float updateSmoothADC() {
 
 // --- 1. 定义空气质量阈值矩阵 (方便随时修改) ---
 // 这里的数字对应：[良(2级), 轻度(3级), 中重度(4级), 严重(5级)]
-const float THRES_TVOC[]  = {0.3,  0.6,  1.5,  2.0};   // mg/m3
+// const float THRES_TVOC[]  = {0.3,  0.6,  1.5,  2.0};   // mg/m3
+const float THRES_TVOC[]  = {0.25,  0.50,  1.26,  1.68};   // ppm
 const int   THRES_CO2[]   = {700,  1000, 1500, 2500};  // ppm
 const float THRES_DUST[]  = {35.0, 75.0, 115.0, 150.0};// ug/m3
 const int   THRES_CH2O[]  = {40,   64,   150,  300};   // ppb (64ppb≈0.08mg/m3)
