@@ -18,8 +18,6 @@ unsigned long lastSampleTime = 0;   // 采样计时
 unsigned long lastReportTime = 0;   // 上报计时
 const unsigned long sampleInterval = 100;  // 100ms 采样一次灰尘 (10Hz)
 const unsigned long reportInterval = 1000; // 1000ms 发送一次数据 (1Hz)
-
-// --- 优化后的滤波函数 (内部逻辑不变，改为非阻塞调用) ---
 float updateSmoothADC() {
   const int FILTER_SIZE = 60;          
   static float _buff[FILTER_SIZE];     
@@ -39,11 +37,15 @@ float updateSmoothADC() {
     _buff[_index] = rawADC;
     _sum += rawADC;
     _index++;
+    
+    // 修复点：记录当前采样的个数，避免直接使用重置后的 _index
+    int currentCount = _index; 
+
     if (_index >= FILTER_SIZE) {
       _full = true;
       _index = 0;
     }
-    return (float)_sum / _index;
+    return (float)_sum / currentCount; // 使用记录好的个数，不会为 0
   } else {
     _sum -= _buff[_index];
     _buff[_index] = rawADC;

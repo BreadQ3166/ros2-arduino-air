@@ -50,9 +50,14 @@ class AirQualitySerialNode(Node):
                 return # 打开失败，跳过本次循环
 
         try:
-            # 读取一行数据: $START,12.5,120.5,$END
+            # 读取一行数据
             if self.ser.in_waiting > 0:
                 line = self.ser.readline().decode('utf-8').strip()
+
+                # 1. 过滤掉启动杂讯和空行（不打印警告）
+                if not line or "Mega" in line or not line.startswith('$'):
+                    return
+
                 parts = line.split(',')
                 
                 # 简单校验
