@@ -9,6 +9,15 @@
   - 传感器层：UART (115200 bps) + ADC
   - Arduino-ROS2传输层：自定义串口协议 `$START,...,$END`
 
+### 空气质量监测参数单位对照表
+
+| 参数名称           | 缩写/分子式 | 读取单位  | 单位全称                     | 备注 / 换算参考                      |
+| :----------------- | :---------- | :-------- | :--------------------------- | :----------------------------------- |
+| **总挥发性有机物** | **TVOC**    | **ppm**   | Parts Per Million (百万分率) | 室内空气中多种有机气体的总称         |
+| **二氧化碳**       | **CO2**     | **ppm**   | Parts Per Million (百万分率) | 衡量室内通风状况的核心指标           |
+| **粉尘**           | **DUST**    | **μg/m³** | 微克每立方米                 | 直径大于0.8μm灰尘颗粒                |
+| **甲醛**           | **CH2O**    | **ppb**   | Parts Per Billion (十亿分率) | **64 ppb ≈ 0.08 mg/m³** (新国标限值) |
+
 # Arduino
 
 ## 1. 硬件清单
@@ -58,7 +67,16 @@ IO电平为3.3V，四根信号线通过电平转换模块进行5V-3.3V电平转�
 #define        SYS_VOLTAGE          5020.0    //供电电压（单位：mV）
 ```
 
-微雪-TVOC气体传感器模组数据已由厂家校准，故无需调参
+微雪-TVOC气体传感器模组数据已由厂家校准，故无需调参。
+
+空气质量等级(根据“短板效应”标准，可自行修改)
+
+```
+const float THRES_TVOC[]  = {0.25,  0.50,  1.26,  1.68};  	// ppm
+const int  THRES_CO2[]  = {700,  1000, 1500, 2500};  		// ppm
+const float THRES_DUST[]  = {35.0, 75.0, 115.0, 150.0};		// ug/m3
+const int  THRES_CH2O[]  = {40,  64,  150,  300};  			// ppb
+```
 
 ## 4. 固件烧录
 
@@ -101,7 +119,7 @@ source install/setup.bash
 ros2 run aq_driver serial_reader
 ```
 
-参数配置，打开/air_ws/src/aq_driver/aq_driver/serial_reader.py
+参数配置，打开`/air_ws/src/aq_driver/aq_driver/serial_reader.py`
 
 | 参数名 | 类型   | 默认值       | 说明            |
 | ------ | ------ | ------------ | --------------- |

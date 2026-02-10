@@ -57,14 +57,14 @@ class AirQualitySerialNode(Node):
                 
                 # 简单校验
                 if len(parts) == 7 and parts[0] == '$START' and parts[6] == '$END':
-                    msg.aq_grade = int(parts[1])
-                    msg.dust_ugm3 = float(parts[2])
-                    msg.tvoc_ppm = float(parts[3])
-                    msg.co2_ppm = int(parts[4])
-                    msg.ch2o_ppb = int(parts[5])
+                    msg.air_quality = int(parts[1])
+                    msg.dust = float(parts[2])
+                    msg.tvoc = float(parts[3])
+                    msg.co2 = int(parts[4])
+                    msg.ch2o = int(parts[5])
 
                     self.publisher_.publish(msg)
-                    # self.get_logger().info(f'Pub Real: TVOC={msg.tvoc_ppm}, Dust={msg.dust_ugm3}')
+                    
                 else:
                     self.get_logger().warn(f'Invalid data format: {line}')
         except Exception as e:
