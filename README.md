@@ -29,6 +29,8 @@
 | 气体传感器   | 微雪-TVOC气体传感器模组 | 支持 UART 串口输出                        |
 | 电平转化模块 | 5V转3.3V四路电平转化    | Arduino(5V)与气体传感器(3.3V)信号电平转化 |
 
+![ros2-arduino-air/diagram/line.jpg at main · BreadQ3166/ros2-arduino-air](https://github.com/BreadQ3166/ros2-arduino-air/blob/main/diagram/line.jpg)
+
 ## 2. 接线定义
 
 ### 2.1 微雪-GP2Y1010AU0F 灰尘传感器
@@ -42,6 +44,8 @@ IO电平为5V，可与Arduino直接连接
 | Analog A0 | AOUT       | 电压模拟量输出    |
 | Digital 7 | ILED       | 传感器内部LED驱动 |
 
+![ros2-arduino-air/diagram/dust.jpg at main · BreadQ3166/ros2-arduino-air](https://github.com/BreadQ3166/ros2-arduino-air/blob/main/diagram/dust.jpg)
+
 ### 2.2 微雪-TVOC气体传感器模组
 
 IO电平为3.3V，四根信号线通过电平转换模块进行5V-3.3V电平转化。传感器上电后需要等待 2 分钟，传感器预热完成。
@@ -54,6 +58,8 @@ IO电平为3.3V，四根信号线通过电平转换模块进行5V-3.3V电平转�
 | Digital 18 (TX1) | RXD        | UART 输入                            |
 | Digital 9        | RST        | 复位引脚，低电平有效                 |
 | Digital 8        | ALM        | 报警引脚，TVOC超过2ppm，引脚自动拉低 |
+
+[ros2-arduino-air/diagram/tvoc.jpg at main · BreadQ3166/ros2-arduino-air](https://github.com/BreadQ3166/ros2-arduino-air/blob/main/diagram/tvoc.jpg)
 
 ## 3. 参数配置
 
