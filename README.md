@@ -59,7 +59,7 @@ IO电平为3.3V，四根信号线通过电平转换模块进行5V-3.3V电平转�
 | Digital 9        | RST        | 复位引脚，低电平有效                 |
 | Digital 8        | ALM        | 报警引脚，TVOC超过2ppm，引脚自动拉低 |
 
-[ros2-arduino-air/diagram/tvoc.jpg at main · BreadQ3166/ros2-arduino-air](https://github.com/BreadQ3166/ros2-arduino-air/blob/main/diagram/tvoc.jpg)
+![ros2-arduino-air/diagram/tvoc.jpg at main · BreadQ3166/ros2-arduino-air](https://github.com/BreadQ3166/ros2-arduino-air/blob/main/diagram/tvoc.jpg)
 
 ## 3. 参数配置
 
